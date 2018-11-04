@@ -6,16 +6,36 @@ export default class SliderComponent extends React.Component {
     inputOneValue: 1,
     inputTwoValue: 40
   }
-
+  handleResetSlider(e){
+    const elements = document.querySelectorAll('.ant-input-number-input');
+    elements.forEach(function(elem){
+      //elem.value='';
+      console.log(elem)
+    });
+  }
   onChange = (value) => {
     console.log(value);
     this.setState({
       inputOneValue: value[0],
+      inputTwoValue: value[1]
     });
   }
   onAfterChange = (value) => {
     this.setState({
-      inputTwoValue: value[1],
+      inputOneValue: value[0],
+      inputTwoValue: value[1]
+    });
+  }
+  onInputChange = (value) => {
+    console.log("onInputChange--"+value);
+    this.setState({
+      inputOneValue: value
+    });
+  }
+  onInputAfterChange = (value) => {
+    console.log("onInputAfterChange--"+value);
+    this.setState({
+      inputTwoValue: value
     });
   }
 
@@ -27,7 +47,7 @@ export default class SliderComponent extends React.Component {
     };
     return (
       <div className="container">
-        <p><b>Pay rate/hr ($)</b> <span className='clearFilter'>clear</span></p>
+        <p><b>Pay rate/hr ($)</b> <span className='clearFilter' onClick={this.handleReset}>clear</span></p>
       <Row>
         <Col span={6}>
           <InputNumber
@@ -36,8 +56,7 @@ export default class SliderComponent extends React.Component {
             defaultValue={1}
             style={{ marginRight: 16 }}
             value={inputOneValue}
-            onChange={this.onChange}
-            onAfterChange={this.onAfterChange}
+            onChange={this.onInputChange}
             />
         </Col>
         <Col span={6}>
@@ -46,8 +65,7 @@ export default class SliderComponent extends React.Component {
             max={40}
             style={{ marginLeft: 16 }}
             value={inputTwoValue}
-            onChange={this.onChange}
-            onAfterChange={this.onAfterChange}
+            onChange={this.onInputAfterChange}
           />
         </Col>
       </Row>
@@ -57,6 +75,7 @@ export default class SliderComponent extends React.Component {
             range
             min={1}
             max={40}
+            value={[inputOneValue,inputTwoValue]}
             marks={marks}
             onChange={this.onChange}
             onAfterChange={this.onAfterChange}

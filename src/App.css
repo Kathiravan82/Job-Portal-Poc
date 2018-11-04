@@ -8,9 +8,17 @@
   float: left;
 
 }
+
 .headerNav{
   float:right;
   margin-right: 10%;
+}
+.SearchContainer{
+  width: 50%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
 }
 .leftContainer{
   padding-right:30px;
