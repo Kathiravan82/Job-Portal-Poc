@@ -1,42 +1,64 @@
 import React, { Component } from 'react';
 import { Slider, InputNumber, Row, Col } from 'antd';
-
 export default class SliderComponent extends React.Component {
-  state = {
-    inputOneValue: 1,
-    inputTwoValue: 40
+  constructor(props){
+    super(props);
+    this.state = {
+      inputOneValue: '',
+      inputTwoValue: ''
+    }
+    this.clearAllSlider = React.createRef();
+    this.handleResetSlider=this.handleResetSlider.bind(this);
+    this.updateFiltervalues=this.updateFiltervalues.bind(this)
   }
-  handleResetSlider(e){
-    const elements = document.querySelectorAll('.ant-input-number-input');
-    elements.forEach(function(elem){
-      //elem.value='';
-      console.log(elem)
+  updateFiltervalues(min,max){
+    const filterValues=this.props.filterValues;
+    //const filterType= 'salarymin';
+    let updatedMinVal = min*40*4;
+    let updatedMaxVal = max*40*4;
+    filterValues['salarymin']=[];
+    filterValues['salarymax']=[];
+    filterValues['salarymin'].push(updatedMinVal.toString())
+    filterValues['salarymax'].push(updatedMaxVal.toString())
+    this.props.handleChange(filterValues)
+  }
+  handleResetSlider(){
+    //const elements = document.querySelectorAll('.ant-input-number-input');
+    //elements.forEach(function(elem,i){
+      this.setState({
+      inputOneValue: 1,
+      inputTwoValue: 40
     });
+    //});
   }
   onChange = (value) => {
-    console.log(value);
     this.setState({
       inputOneValue: value[0],
       inputTwoValue: value[1]
     });
+    this.updateFiltervalues(value[0],value[1]);
   }
   onAfterChange = (value) => {
     this.setState({
       inputOneValue: value[0],
       inputTwoValue: value[1]
     });
+    this.updateFiltervalues(value[0],value[1]);
   }
   onInputChange = (value) => {
     console.log("onInputChange--"+value);
     this.setState({
       inputOneValue: value
     });
+    this.updateFiltervalues(value,this.state.inputTwoValue);
+
   }
   onInputAfterChange = (value) => {
     console.log("onInputAfterChange--"+value);
     this.setState({
       inputTwoValue: value
     });
+    this.updateFiltervalues(this.state.inputOneValue,value);
   }
 
   render() {
@@ -47,7 +69,7 @@ export default class SliderComponent extends React.Component {
     };
     return (
       <div className="container">
-        <p><b>Pay rate/hr ($)</b> <span className='clearFilter' onClick={this.handleReset}>clear</span></p>
+        <p><b>Pay rate/hr ($)</b> <span className='clearFilter' onClick={this.handleResetSlider}>clear</span></p>
       <Row>
         <Col span={6}>
           <InputNumber

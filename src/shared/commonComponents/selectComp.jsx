@@ -19,13 +19,38 @@ export default class SelectComp extends Component{
 			
 		}
 	}
+	
+	filterTypeVal(filterVal) {
+		let filterType=''
+		switch(filterVal){
+			case "skills":{
+				filterType = "requiredSkills"
+				break;
+			}
+			case "Job type":{
+				filterType = "jobType"
+				break;
+			}
+			default :{
+				filterType = filterVal
+			}
+		}
+		return filterType;
+	}
 	onHandleChange(value){
-		const filterType= this.props.title;
+		const filterTypeVal=this.props.title === "Job type"?"joblist":this.props.title
+		let filterType= this.filterTypeVal(filterTypeVal)
+
+		filterType=filterType.replace(" ","").toLowerCase();
 		const filterValues=this.props.filterValues;
 		if(!value  || value.length == 0){
 			delete filterValues[filterType];	
 		}else{
-			filterValues[filterType]=value;
+			if(Array.isArray(value)){
+				filterValues[filterType]=value;
+			}else{
+				filterValues[filterType]=value.split(",");
+			}
 			if(filterValues[filterType].length > 0){
 			this.props.handleChange(filterValues);
 			}
