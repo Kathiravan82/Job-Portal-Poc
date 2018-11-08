@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Slider, InputNumber, Row, Col } from 'antd';
+import { Slider, InputNumber,Checkbox, Row, Col } from 'antd';
 export default class SliderComponent extends React.Component {
   constructor(props){
     super(props);
@@ -32,6 +32,7 @@ export default class SliderComponent extends React.Component {
     //});
   }
   onChange = (value) => {
+    console.log("onChange--"+value);
     this.setState({
       inputOneValue: value[0],
       inputTwoValue: value[1]
@@ -39,6 +40,7 @@ export default class SliderComponent extends React.Component {
     this.updateFiltervalues(value[0],value[1]);
   }
   onAfterChange = (value) => {
+    console.log("onAfterChange--"+value);
     this.setState({
       inputOneValue: value[0],
       inputTwoValue: value[1]
@@ -102,6 +104,11 @@ export default class SliderComponent extends React.Component {
             onChange={this.onChange}
             onAfterChange={this.onAfterChange}
           />
+        </Col>
+        </Row>
+        <Row>
+        <Col span={24}>
+          <Checkbox name="selectOtherOptions" className='availability_box'  >Include profiles without any payrates</Checkbox>
         </Col>
         </Row>
       </div>

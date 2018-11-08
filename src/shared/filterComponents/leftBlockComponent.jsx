@@ -3,6 +3,7 @@ import { Layout,Divider,Input,Slider } from 'antd';
 import Availability from './availability.jsx';
 import SelectComp from '../commonComponents/selectComp.jsx';
 import SliderComponent from './sliderComponent.jsx';
+import jsonData from '../data/joblist.json';
 
 export default class LeftBlockComponent extends Component{
 	constructor(props){
@@ -10,7 +11,8 @@ export default class LeftBlockComponent extends Component{
 		this.clearAllinput = React.createRef();
 		this.clearAllCheckbox = React.createRef();
 		this.clearAllSlider = React.createRef();
-		this.clearAllinputChildCall=this.clearAllinputChildCall.bind(this)
+		this.clearAllinputChildCall=this.clearAllinputChildCall.bind(this);
+		this.filterProps=this.filterProps.bind(this);
 	}
 	clearAllinputChildCall(){
 		let filterValues=this.props.filterValues;
@@ -20,12 +22,28 @@ export default class LeftBlockComponent extends Component{
 		filterValues=null
 		console.log("clearAllinputChildCall",filterValues)
 	}
-	
+	filterProps(data,property){
+		let arr = [];
+			data.forEach(function(element){
+				if (arr.indexOf(element[property]) === -1) {
+					arr.push(element[property])
+				}
+		    })
+		arr = arr.join(',').split(',');
+		arr=arr.filter((v,i) => arr.indexOf(v) === i)
+
+		return arr;
+	}
 	render(){
+		const skillsProps= this.filterProps(jsonData,"requiredSkills");
+		//console.log("jobProps",jobtypeProps);
+		//const jobtypeProps1 = this.filterProps(jsonData,"jobType");
+		//console.log("jobtypeProps1",jobtypeProps1);
 		const jobtypeProps=['Full-time','Part-time','hourly'];
-		const skillsProps = ["PHP","JAVA","REACT.JS","JAVASCRIPT","CSS","HTML5","ANGULAR.JS"];
+		//const skillsProps = ["PHP","NPM","REACT","JAVASCRIPT","CSS","HTML5","ANGULAR.JS"];
 		const experienceProps=['1-5 years','5-10 years','10+ years'];
-		const languageProps=['English','Spanish','France','Chinese','Korean']
+		const languageProps=['English','Spanish','France','Chinese','Korean'];
+		const countryProps =this.filterProps(jsonData,"location");
 		let filterValues=this.props.filterValues;
 		return(
 			<Layout >
@@ -36,13 +54,12 @@ export default class LeftBlockComponent extends Component{
 				<SelectComp compType="default" optionProps={jobtypeProps} title="Job type" placeholder="Select a job type" filterValues={filterValues}  handleChange={this.props.handleChange} />
 				<SliderComponent filterValues={filterValues} handleChange={this.props.handleChange} ref={this.clearAllSlider} />
 				<div className="container">
-				<SelectComp compType="default" optionProps={experienceProps} title="Experience" placeholder="Select your experience level" handleChange={this.props.handleChange} filterValues={filterValues} />
+				<SelectComp compType="default" optionProps={experienceProps} title="Experience" placeholder="Select your experience level"  />
 				</div>
 				<div className="container">
-					<p><b>State or Province</b> <span className='clearFilter'>clear</span></p>
-					<Input placeholder="Enter State,Province or country"  />
+					<SelectComp compType="default" optionProps={countryProps} title="State or Province" placeholder="Select your State or Province" handleChange={this.props.handleChange} filterValues={filterValues} ref={this.clearAllinput} />
 				</div>
-				<SelectComp compType="default" optionProps={languageProps} title="Languages" placeholder="Select your Languages" handleChange={this.props.handleChange} filterValues={filterValues} />
+				<SelectComp compType="default" optionProps={languageProps} title="Languages" placeholder="Select your Languages"  />
 
 			</Layout>
 		);

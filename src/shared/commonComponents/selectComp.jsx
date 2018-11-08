@@ -23,12 +23,16 @@ export default class SelectComp extends Component{
 	filterTypeVal(filterVal) {
 		let filterType=''
 		switch(filterVal){
-			case "skills":{
+			case "Skills":{
 				filterType = "requiredSkills"
 				break;
 			}
 			case "Job type":{
 				filterType = "jobType"
+				break;
+			}
+			case "State or Province":{
+				filterType = "location"
 				break;
 			}
 			default :{
@@ -41,9 +45,9 @@ export default class SelectComp extends Component{
 		const filterTypeVal=this.props.title === "Job type"?"joblist":this.props.title
 		let filterType= this.filterTypeVal(filterTypeVal)
 
-		filterType=filterType.replace(" ","").toLowerCase();
+		//filterType=filterType.replace(" ","").toLowerCase();
 		const filterValues=this.props.filterValues;
-		if(!value  || value.length == 0){
+		if(!value){
 			delete filterValues[filterType];	
 		}else{
 			if(Array.isArray(value)){
@@ -51,9 +55,11 @@ export default class SelectComp extends Component{
 			}else{
 				filterValues[filterType]=value.split(",");
 			}
-			if(filterValues[filterType].length > 0){
-			this.props.handleChange(filterValues);
+			if(!filterValues[filterType] || filterValues[filterType].length == 0 ){
+					delete filterValues[filterType];	
 			}
+				this.props.handleChange(filterValues);
+			
 		}
 	}
 	renderOptions= (optionVal)=> {
@@ -71,14 +77,15 @@ export default class SelectComp extends Component{
 
 		const {compType,title,optionProps,placeholder}=this.props;
 		//const toolTip = {}
+		const titleVal=({title} === "State or Province")?"state_province":{title}.toString().replace(' ','').toLowerCase();
 		return(
-		<div className={(title.replace(' ','').toLowerCase())+"__container container"}>
+		<div className={titleVal+"__container container"}>
 				<p>
 				<b>{title+" "}{title === "Job type"?<Tooltip title="prompt text"><Icon type="info-circle" style={{ fontSize: '18px' }} theme="outlined" /> </Tooltip>:""}</b>
 				<span className='clearFilter' id={title} onClick={this.onHandleReset}  >clear</span>
 				</p>
 				{compType == "multiple"?
-				<Select mode={compType} allowClear  defaultValue={[optionProps[0], optionProps[1]]} onChange={this.onHandleChange}>
+				<Select mode={compType} allowClear  onChange={this.onHandleChange}>
 		      	{this.renderOptions(optionProps)}
 		    	</Select>
 		    	:
