@@ -1,6 +1,18 @@
 @import '~antd/dist/antd.css';
+$main-bg-color:#fff;
+$white:#fff;
+@mixin tags{
+    color: $white;
+    border: 1px solid #d9d9d9;
+    border-radius: 15px;
+    display: inline-block;
+    padding: 10px;
+    font-size: 12px;
+    height: 25px;
+    line-height: 3px;
+}
 .ant-layout-header {
-  background: #ffffff;
+  background: $main-bg-color;
   padding: 0;
   img.logo {
     margin: 1% 5%;
@@ -47,26 +59,18 @@
 }
 
 .middleContainer {
-  background: #fff;
+  background: $main-bg-color;
   .JobListBlock {
     padding: 5%;
   }
   .ant-list-item-meta-title {
     .jobType_Full_Time {
-      background-color: #72D1FA;
-      color: #fff;
-      border: 1px solid #d9d9d9;
-      border-radius: 25%;
-      display: inline-block;
-      padding: 5px;
+        background-color: #72D1FA;
+        @include tags;
     }
     .jobType_Part_Time {
       background-color: #f6c260;
-      color: #fff;
-      border: 1px solid #d9d9d9;
-      border-radius: 25%;
-      display: inline-block;
-      padding: 5px;
+      @include tags;
     }
   }
   .ant-list-pagination {
@@ -97,14 +101,17 @@
     font-weight: 500;
     background-color: #1890ff;
     a {
-      color: #fff;
+      color: $white;
     }
   }
   .ant-spin-container span.skillsList {
     border: 1px solid #d9d9d9;
-    border-radius: 25%;
+    border-radius: 15px;
     display: inline-block;
-    padding: 5px;
+    padding: 10px;
+    font-size: 16px;
+    height: 25px;
+    line-height: 3px;
     margin-right: 10px;
     margin-top: 20px;
   }
@@ -114,7 +121,7 @@
   padding-left: 30px;
   .ant-layout {
     .rightAdBlockOne {
-      background: #fff;
+      background: $main-bg-color;
       padding: 50px 0;
       text-align: center;
       margin-bottom: 10%;

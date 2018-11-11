@@ -19,7 +19,9 @@ export default class JobList extends Component{
 		this.state={
 			filteredArr:jsonData
 		}
-
+	}
+	componentDidMount(){
+		this.onHandleSort("relavance");
 	}
 	multiFilter(array, filters) {
 	  	const filterKeys = Object.keys(filters);
@@ -56,7 +58,7 @@ export default class JobList extends Component{
 					filteredArr:filteredArr
 				})
 				//const filterValues= this.props.filterValues;
-				//this.props.handleChange(filterValues)
+				this.props.handleChange(filterValues)
 				break;
 			}
 			case "highToLow":{
@@ -68,7 +70,7 @@ export default class JobList extends Component{
 				this.setState({
 					filteredArr:filteredArr
 				})
-				//this.props.handleChange(filterValues)
+				this.props.handleChange(filterValues)
 				break;
 			}
 			case "relavance":{
@@ -76,7 +78,7 @@ export default class JobList extends Component{
 				this.setState({
 					filteredArr:filteredArr
 				})
-				//this.props.handleChange(filterValues)
+				this.props.handleChange(filterValues)
 				break;
 			}
 
@@ -105,21 +107,17 @@ export default class JobList extends Component{
 			filterData = this.multiFilter(jsonData,filterValues);
 		}
 		if(filterGSValues.globalSearch){
-		  gstrArray=filterGSValues.globalSearch.split(",");
-		}
-		if(gstrArray.length > 0){
+		  	gstrArray=filterGSValues.globalSearch.split(",");
 			filteredArr = [];
 			gstrArray.forEach((arrayVal) => {
 			filterData.forEach(element => {
 			    for (var property in element) {
 		            var propertyVal = element[property].toString().toLowerCase().trim();
 		            if((propertyVal.includes(arrayVal.toLowerCase().trim())) && filteredArr.length === 0){
-		            	console.log("in")
 		            	filteredArr.push(element);
 		            	filterIds.push(element.id);
 		            	break;
 		            }else if(propertyVal.includes(arrayVal.toLowerCase().trim()) && filteredArr.length > 0 ) {
-		            	console.log("out")
 		                 for(let i=0;i<filteredArr.length;i++){
 		                 	if(!filterIds.includes(element.id)){
 		                 		filteredArr.push(element);
@@ -134,8 +132,8 @@ export default class JobList extends Component{
 		}else{
 			filteredArr = [];
 			filteredArr = filterData;
-		}
 
+		}
 		if(Object.keys(filterValues).length === 0 && filterValues.constructor === Object && gstrArray.length == 0){
 			filteredArr = this.state.filteredArr;
 		}	
@@ -145,7 +143,7 @@ export default class JobList extends Component{
 		<Col className="sortBlock">
 			<span className="resultsCounter">Results({filteredArr.length})<label>Sort By: </label></span>
 			<span className="sortModule">
-				
+
 				<Select  onChange={this.onHandleSort} placeholder="Relavance">
 					<Option value="relavance">Relavance</Option>
 				    <Option value="lowToHigh">Price Low to High</Option>
