@@ -5,7 +5,7 @@ import RightBlockComponent from './shared/filterComponents/rightBlockComponent.j
 import FooterComponent from './shared/footerComponents/footerComponent.jsx'
 import SearchComponent from './shared/filterComponents/searchComponent.jsx'
 import JobList from './shared/filterComponents/jobList.jsx'
-import './App.css';
+import './App.scss';
 import { Layout,Row,Col,Input } from 'antd';
 
 const { Footer } = Layout;
