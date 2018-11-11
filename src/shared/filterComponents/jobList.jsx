@@ -25,6 +25,7 @@ export default class JobList extends Component{
 	}
 	multiFilter(array, filters) {
 	  	const filterKeys = Object.keys(filters);
+
 	  // filters all elements passing the criteria
 	  return array.filter((item) => {
 	    // dynamically validate all filter criteria
@@ -85,6 +86,28 @@ export default class JobList extends Component{
 		}
 
 	}
+	globalSearchFilter(gsArray,filterData){
+		gsArray.forEach((arrayVal) => {
+			filterData.forEach(element => {
+			    for (var property in element) {
+		            var propertyVal = element[property].toString().toLowerCase().trim();
+		            if((propertyVal.includes(arrayVal.toLowerCase().trim())) && filteredArr.length === 0){
+		            	filteredArr.push(element);
+		            	filterIds.push(element.id);
+		            	break;
+		            }else if(propertyVal.includes(arrayVal.toLowerCase().trim()) && filteredArr.length > 0 ) {
+		                 for(let i=0;i<filteredArr.length;i++){
+		                 	if(!filterIds.includes(element.id)){
+		                 		filteredArr.push(element);
+		                 		filterIds.push(element.id);
+		                 		break;
+		                 	}
+		                }
+		            }
+			    }
+			});
+		})
+	}
 	render(){
 		let filterIds = [];
 		let salaryDiffChecker =[];
@@ -109,26 +132,8 @@ export default class JobList extends Component{
 		if(filterGSValues.globalSearch){
 		  	gstrArray=filterGSValues.globalSearch.split(",");
 			filteredArr = [];
-			gstrArray.forEach((arrayVal) => {
-			filterData.forEach(element => {
-			    for (var property in element) {
-		            var propertyVal = element[property].toString().toLowerCase().trim();
-		            if((propertyVal.includes(arrayVal.toLowerCase().trim())) && filteredArr.length === 0){
-		            	filteredArr.push(element);
-		            	filterIds.push(element.id);
-		            	break;
-		            }else if(propertyVal.includes(arrayVal.toLowerCase().trim()) && filteredArr.length > 0 ) {
-		                 for(let i=0;i<filteredArr.length;i++){
-		                 	if(!filterIds.includes(element.id)){
-		                 		filteredArr.push(element);
-		                 		filterIds.push(element.id);
-		                 		break;
-		                 	}
-		                }
-		            }
-			    }
-			});
-		})
+			this.globalSearchFilter(gstrArray,filterData);
+			
 		}else{
 			filteredArr = [];
 			filteredArr = filterData;
