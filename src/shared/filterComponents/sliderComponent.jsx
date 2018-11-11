@@ -29,6 +29,10 @@ export default class SliderComponent extends React.Component {
       inputOneValue: 1,
       inputTwoValue: 40
     });
+      const filterValues=this.props.filterValues;
+      delete filterValues['salarymin'];
+      delete filterValues['salarymax'];
+      this.props.handleChange(filterValues);
     //});
   }
   onChange = (value) => {

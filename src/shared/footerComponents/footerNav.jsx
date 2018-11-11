@@ -8,38 +8,44 @@ export default class FooterNavComponent extends Component{
 		<Row className="footerNav">
             <Col xs={24} sm={24} md={6} lg={6} xl={6}  >
             	<ul>
-                  <li>TALENT</li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
+                  <li><strong>TALENT</strong></li>
+            	<li><a href="#" >How it Works</a></li>
+            	<li><a href="#" >Why we're free</a></li>
+            	<li><a href="#" >Agencies</a></li>
                   </ul>
             </Col>
             <Col xs={24} sm={24} md={6} lg={6} xl={6}  >
                   <ul>
-            	<li>HUBSTAFF</li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
+            	<li><strong>HUBSTAFF</strong></li>
+            	<li><a href="#" >About</a></li>
+            	<li><a href="#" >Time Tracking</a></li>
+            	<li><a href="#" >Developer</a></li>
+            	<li><a href="#" >Resources</a></li>
                   </ul>
             </Col>
             <Col xs={24} sm={24} md={6} lg={6} xl={6}  >
                   <ul>
-            	<li>SUPORT</li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
-            	<li><a href="#" >Link</a></li>
+            	<li><strong>SUPPORT</strong></li>
+            	<li><a href="#" >Help center</a></li>
+            	<li><a href="#" >Blog</a></li>
+            	<li><a href="#" >FAQ</a></li>
+            	<li><a href="#" >Email us</a></li>
+            	<li><a href="#" >Terms</a></li>
+            	<li><a href="#" >Privacy</a></li>
                   </ul>
             </Col>
             <Col xs={24} sm={24} md={6} lg={6} xl={6} className="socialBlock" >
-            	<div>SOCIAL</div>
-            	<ul><li><Icon type="twitter" theme="outlined" style={{fontSize:"18px"}} /></li>
-            	<li><Icon type="facebook" theme="outlined" style={{fontSize:"18px"}} /></li>
-            	<li><Icon type="instagram" theme="outlined" style={{fontSize:"18px"}} /></li></ul>
+            	
+            	<ul>
+                        <li><strong>SOCIAL</strong></li>
+                        <li >
+                              <ul>
+                                    <li className="iconsList"><Icon type="twitter" theme="outlined" style={{fontSize:"18px"}} /></li>
+                        	      <li className="iconsList"><Icon type="facebook" theme="outlined" style={{fontSize:"18px"}} /></li>
+                        	      <li className="iconsList"><Icon type="instagram" theme="outlined" style={{fontSize:"18px"}} /></li>
+                              </ul>
+                        </li>
+                  </ul>
             </Col>
 
          </Row>

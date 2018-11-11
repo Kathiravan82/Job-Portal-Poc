@@ -21,6 +21,9 @@ export default class HeaderNavComponent extends Component{
           <span> BROWSE <Icon type="down" /></span> 
         </Dropdown>
         <Menu.Item key="3">SEARCH</Menu.Item>
+        <Dropdown overlay={dropDownMenu}>
+          <span><Icon type="user" /> MY ACCOUNT <Icon type="down" /></span> 
+        </Dropdown>
       </Menu>
 		 
 		);

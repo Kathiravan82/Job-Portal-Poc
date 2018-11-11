@@ -42,7 +42,7 @@ export default class App extends Component {
     return (
       <Layout>
       <HeaderComponent />
-      <Layout className="SearchContainer">
+      <Layout className="SearchContainer mainContainer">
         <SearchComponent globalSearch={globalSearch} handleChange={this.handleGlobalSearchChange} />
       </Layout>
       <Layout className='mainContainer'>

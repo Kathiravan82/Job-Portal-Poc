@@ -1,32 +1,37 @@
 import React, { Component } from 'react';
-import { List, Avatar, Icon } from 'antd';
+import { List, Avatar, Icon, Select,Layout,Row,Col,Input } from 'antd';
+
 import jsonData from '../data/joblist.json';
-
-
+const Option = Select.Option;
 const IconText = ({ type, text }) => (
   <span>
     <Icon type={type} style={{ marginRight: 8 }} />
     {text}
   </span>
 );
-
+let filteredArr = [];
 export default class JobList extends Component{
 	constructor(props){
 		super(props);
 		this.multiFilter = this.multiFilter.bind(this);
 		this.salaryDiffCalculator =this.salaryDiffCalculator.bind(this);
+		this.onHandleSort= this.onHandleSort.bind(this);
+		this.state={
+			filteredArr:jsonData
+		}
 
 	}
 	multiFilter(array, filters) {
 	  	const filterKeys = Object.keys(filters);
 	  // filters all elements passing the criteria
-	  console.log(filterKeys)
 	  return array.filter((item) => {
 	    // dynamically validate all filter criteria
 	    return filterKeys.every(key => {
-	    	console.log("filters---",filters[key]);
-	    	console.log("item---",item[key]);
-	    	return !!~item[key].indexOf(filters[key])
+	    	if(filters[key].indexOf(item[key])!= -1){
+	    		return item;
+	    	}else if(item[key].indexOf(filters[key]) != -1){
+	    		return item;
+	    	}
 	    });
 	  });
 	}
@@ -39,78 +44,90 @@ export default class JobList extends Component{
   		});
   		 return acc;	
 	}
+	onHandleSort(value){
+				const filterValues= this.props.filterValues;
+				console.log(filterValues);
+		switch(value){
+			case "lowToHigh":{
+				filteredArr=filteredArr.sort(function(a, b){
+    							return a.salarymin-b.salarymin
+							})
+				this.setState({
+					filteredArr:filteredArr
+				})
+				//const filterValues= this.props.filterValues;
+				//this.props.handleChange(filterValues)
+				break;
+			}
+			case "highToLow":{
+				filteredArr=filteredArr.sort(function(a, b){
+    							return b.salarymin-a.salarymin
+							})
+				
+				//const filterValues= this.props.filterValues
+				this.setState({
+					filteredArr:filteredArr
+				})
+				//this.props.handleChange(filterValues)
+				break;
+			}
+			case "relavance":{
+				//return filteredArr;
+				this.setState({
+					filteredArr:filteredArr
+				})
+				//this.props.handleChange(filterValues)
+				break;
+			}
+
+		}
+
+	}
 	render(){
-		let filteredArr = [];
 		let filterIds = [];
 		let salaryDiffChecker =[];
+		let gstrArray = [];
 		let filterValues=this.props.filterValues;
 		const salarymin=filterValues.salarymin;
 		const salarymax=filterValues.salarymax;
-		console.log(filterValues.salarymin);
-		console.log(filterValues.salarymax);
 		let filterGSValues=this.props.globalSearch;
-		console.log("filterValues",filterValues)
 		let filterData = jsonData;
 		
 
 		if(filterValues.salarymin != undefined || filterValues.salarymax != undefined){
-			console.log("in")
 			let multifilterValues = Object.assign({},filterValues);
 			delete multifilterValues.salarymin;
 			delete multifilterValues.salarymax;
 			filterData = this.multiFilter(jsonData,multifilterValues);
-			
-				//if (filterData.length == 0){
-				//	salaryDiffChecker = Object.assign([],jsonData)
-				//}else{
-					salaryDiffChecker = Object.assign([],filterData);
-				//}
-				console.log("filterData",salaryDiffChecker);
+			salaryDiffChecker = Object.assign([],filterData);
 			 filterData=this.salaryDiffCalculator(salaryDiffChecker,salarymin,salarymax);
 		}else{
-			console.log("filterValues-Else",filterValues)
 			filterData = this.multiFilter(jsonData,filterValues);
-			console.log("filterData-Else",filterData)
 		}
-		// if(filterData.length == 0){
-		// 	filterData = jsonData;
-		// }
-		console.log("filterData---1111",filterData);
-		let gstr = "React,California"
-		let gstrArray = [];
 		if(filterGSValues.globalSearch){
 		  gstrArray=filterGSValues.globalSearch.split(",");
 		}
-		
-		
-		//let res=[]
-		//for (let i=0;i<gstrArray.length;i++){
-		 //const res = filterData.filter(obj => Object.values(obj).some(val => val.includes("React")));
-		//}
 		if(gstrArray.length > 0){
+			filteredArr = [];
 			gstrArray.forEach((arrayVal) => {
 			filterData.forEach(element => {
 			    for (var property in element) {
-				            var propertyVal = element[property].toString().toLowerCase().trim();
-				            
-				            //console.log("includesCheck",propertyVal.includes(arrayVal.toLowerCase())
-				            if((propertyVal.includes(arrayVal.toLowerCase().trim())) && filteredArr.length === 0){
-				            	//console.log("---elseif---"+element.id+"value--"+element[property])
-				            	filteredArr.push(element);
-				            	filterIds.push(element.id);
-				            	break;
-				            }else if(propertyVal.includes(arrayVal.toLowerCase().trim()) && filteredArr.length > 0 ) {
-				            	
-				                 for(let i=0;i<filteredArr.length;i++){
-				                 	if(!filterIds.includes(element.id)){
-				                 		filteredArr.push(element);
-				                 		filterIds.push(element.id);
-				                 		break;
-				                 	}
-				                }
-				            }
-			        	//})
-			       // }
+		            var propertyVal = element[property].toString().toLowerCase().trim();
+		            if((propertyVal.includes(arrayVal.toLowerCase().trim())) && filteredArr.length === 0){
+		            	console.log("in")
+		            	filteredArr.push(element);
+		            	filterIds.push(element.id);
+		            	break;
+		            }else if(propertyVal.includes(arrayVal.toLowerCase().trim()) && filteredArr.length > 0 ) {
+		            	console.log("out")
+		                 for(let i=0;i<filteredArr.length;i++){
+		                 	if(!filterIds.includes(element.id)){
+		                 		filteredArr.push(element);
+		                 		filterIds.push(element.id);
+		                 		break;
+		                 	}
+		                }
+		            }
 			    }
 			});
 		})
@@ -118,38 +135,60 @@ export default class JobList extends Component{
 			filteredArr = [];
 			filteredArr = filterData;
 		}
-		if(filterValues == {} && gstrArray.length == 0){
-			filteredArr = jsonData;
-		}
 
-		
-		console.log("filteredArr",filteredArr);
-		//let jsonData = jsonData.filter()
+		if(Object.keys(filterValues).length === 0 && filterValues.constructor === Object && gstrArray.length == 0){
+			filteredArr = this.state.filteredArr;
+		}	
 		return(
-	  <List
+		<div className="JobListBlock container">
+		<Row>
+		<Col className="sortBlock">
+			<span className="resultsCounter">Results({filteredArr.length})<label>Sort By: </label></span>
+			<span className="sortModule">
+				
+				<Select  onChange={this.onHandleSort} placeholder="Relavance">
+					<Option value="relavance">Relavance</Option>
+				    <Option value="lowToHigh">Price Low to High</Option>
+				    <Option value="highToLow">Price High to Low</Option>
+				</Select>
+			</span>
+		</Col>
+		<Col>
+	  	<List
 	    itemLayout="vertical"
 	    size="large"
+	    total={filteredArr.length}
 	    pagination={{
 	      onChange: (page) => {
 	        console.log(page);
 	      },
-	      pageSize: 3,
+	      pageSize: 4,
 	    }}
 	    dataSource={filteredArr}
 	    renderItem={item => (
 	      <List.Item
 	        key={item.title}
-	        actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
-	        extra='$44/hour'
+	        extra={"$ "+Math.round(item.salarymin/160)+"/ hr"}
 	      >
 	        <List.Item.Meta
-	          title={<a href={item.href}>{item.title}</a>}
-	          description={item.desciption}
+	          title={<p><a href={item.href}>{item.title} </a><span className={`jobType_${item.jobType.replace(" ","_")}`} >{item.jobType}</span></p>}
+	          description={<span><Icon type="environment" style={{ color: '#52c41a' }} />{item.location}</span>}
 	        />
-	        {item.description}
+	        {item.desciption}
+		        <List 
+		        itemLayout="horizontal"
+		    	size="small"
+		    	dataSource={item.requiredSkills.split(',')}
+		    	renderItem={item => (
+		    		<span className="skillsList"> {item}</span>
+		    		)}
+		        />
 	      </List.Item>
 	    )}
-	  />
+	   />
+	   </Col>
+	   </Row>
+	   </div>
 	  );
 	}
 }

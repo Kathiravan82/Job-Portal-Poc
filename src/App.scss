@@ -1,0 +1,162 @@
+.ant-layout-header {
+  background: #ffffff;
+  padding: 0;
+}
+.ant-layout-header img.logo {
+  margin: 1% 5%;
+  float: left;
+}
+.ant-layout-header .headerNav {
+  float: right;
+  margin-right: 10%;
+}
+.ant-layout-footer img.logo{
+  margin: 1% 5%;
+  float: left;
+}
+
+.SearchContainer {
+  margin-top: 2%;
+}
+.ant-layout-footer img.logo {
+  margin: 1% 5%;
+  float: left;
+}
+  .mainContainer {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+  }
+  .container {
+    margin-bottom: 10%;
+  }
+  .leftContainer {
+    padding-right: 30px;
+  }
+  .leftContainer .ant-select {
+      width: 100%;
+  }
+  .leftContainer span.clearFilter {
+      float: right;
+  }
+  
+  .middleContainer {
+    background: #fff;
+  }
+  .middleContainer .JobListBlock {
+    padding: 5%;
+  }
+  .middleContainer  .ant-list-item-meta-title .jobType_Full_Time {
+        background-color: #72D1FA;
+        color: #fff;
+        border: 1px solid #d9d9d9;
+        border-radius: 25%;
+        display: inline-block;
+        padding: 5px;
+  }
+  .middleContainer  .ant-list-item-meta-title .jobType_Part_Time {
+    background-color: #f6c260;
+    color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 25%;
+    display: inline-block;
+    padding: 5px;
+  }
+  .middleContainer .ant-list-pagination {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .middleContainer .ant-pagination-item {
+    border: none;
+  }
+  .middleContainer .sortBlock > span {
+    width: 50%;
+    display: inline-block;
+  }
+  .middleContainer .sortBlock > span.resultsCounter {
+    width: 70%;
+  }
+  .middleContainer .sortBlock > span.sortModule {
+    width: 30%;
+  }
+  .middleContainer .sortBlock > span.resultsCounter label {
+    width: 15%;
+    float: right;
+  }
+  
+  .middleContainer .ant-pagination-item-active {
+    font-weight: 500;
+    background-color: #1890ff;
+  }
+  .middleContainer .ant-pagination-item-active a {
+      color: #fff;
+  }
+  .middleContainer .ant-spin-container span.skillsList {
+    border: 1px solid #d9d9d9;
+    border-radius: 25%;
+    display: inline-block;
+    padding: 5px;
+    margin-right: 10px;
+    margin-top: 20px;
+  }
+  
+  .rightContainer {
+    padding-left: 30px;
+  }
+  .rightContainer .ant-layout .rightAdBlockOne {
+      background: #fff;
+      padding: 50px 0;
+      text-align: center;
+      margin-bottom: 10%;
+  }
+  .rightContainer .ant-layout .rightAdBlockOne a {
+      display: block;
+      padding-top: 10px;
+  }
+    
+  .rightContainer .ant-layout .rightAdBlockList {
+    margin-bottom: 20px;
+  }
+  .rightContainer .ant-layout .rightAdBlockList .job-container {
+      margin: 20px 0;
+  }
+  .rightContainer .ant-layout .rightAdBlockList .job-container  .left {
+      width: 90%;
+      float: left;
+  }
+  .rightContainer .ant-layout .rightAdBlockList .job-container .right {
+      float: right;
+      width: 10%;
+  }
+  .rightContainer .ant-layout .rightAdBlockList .job-container.title {
+      font-weight: bold;
+      padding-bottom: 5px;
+      font-size: 15px;
+  }
+  .rightContainer .ant-layout .rightAdBlockList .job-container .info {
+      margin: 20px 0 15px 0;
+  }
+
+.ant-layout-footer {
+  background: #324258;
+  color: #fff;
+}
+.ant-layout-footer  .footerNav {
+    text-align: center;
+    padding-bottom: 10%;
+}
+.ant-layout-footer .footerNav  ul {
+      padding: 0;
+}
+.ant-layout-footer .footerNav  ul li {
+  list-style-type: none;
+  padding: 10px;
+}
+.ant-layout-footer .footerNav  ul li a {
+  color: #92A0B7;
+}
+.ant-layout-footer .footerNav .socialBlock ul li.iconsList {
+      display: inline;
+      margin-left: 25px;
+}
+  

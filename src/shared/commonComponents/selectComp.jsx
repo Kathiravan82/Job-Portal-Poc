@@ -6,9 +6,10 @@ const Option = Select.Option;
 export default class SelectComp extends Component{
 	constructor(props){
 		super(props);
+		console.log(this.props.filterValues)
 		this.clearAllinput = React.createRef();
 		this.onHandleChange=this.onHandleChange.bind(this);
-		//this.onHandleReset=this.onHandleReset.bind(this);
+		this.onHandleReset=this.onHandleReset.bind(this);
 		this.clearAllInputMethod=this.clearAllInputMethod.bind(this)
 	}
 	clearAllInputMethod(e){
@@ -53,7 +54,7 @@ export default class SelectComp extends Component{
 			if(Array.isArray(value)){
 				filterValues[filterType]=value;
 			}else{
-				filterValues[filterType]=value.split(",");
+				filterValues[filterType]=value.toString().split(",");
 			}
 			if(!filterValues[filterType] || filterValues[filterType].length == 0 ){
 					delete filterValues[filterType];	
@@ -69,20 +70,28 @@ export default class SelectComp extends Component{
   	}
   	onHandleReset(e){
   		const id= e.target.id.replace(' ','').toLowerCase();
+  		console.log("id",id)
   		const clearComponent ="."+id+"__container";
   		const elem=document.querySelectorAll(clearComponent+' .ant-select-selection__clear')
+  		const filterValues=this.props.filterValues;
+  		let filterType= this.filterTypeVal(this.props.title);
+  		console.log(filterType)
+  		delete filterValues[filterType];
   		elem[0].click();
+  		this.props.handleChange(filterValues);
+  		
   	}
 	render(){
 
 		const {compType,title,optionProps,placeholder}=this.props;
 		//const toolTip = {}
-		const titleVal=({title} === "State or Province")?"state_province":{title}.toString().replace(' ','').toLowerCase();
+		//const titleVal={title === "State or Province"?"state_province":title.toString().replace(' ','').toLowerCase()};
+		//console.log("titleVal",{titleVal})
 		return(
-		<div className={titleVal+"__container container"}>
+		<div className={title === "State or Province"?"state_province__container container":title.toString().replace(' ','').toLowerCase()+"__container container"}>
 				<p>
 				<b>{title+" "}{title === "Job type"?<Tooltip title="prompt text"><Icon type="info-circle" style={{ fontSize: '18px' }} theme="outlined" /> </Tooltip>:""}</b>
-				<span className='clearFilter' id={title} onClick={this.onHandleReset}  >clear</span>
+				<span className='clearFilter' id={title === "State or Province"?"state_province":title.toString().replace(' ','').toLowerCase()} onClick={this.onHandleReset}  >clear</span>
 				</p>
 				{compType == "multiple"?
 				<Select mode={compType} allowClear  onChange={this.onHandleChange}>
