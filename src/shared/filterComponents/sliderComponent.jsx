@@ -4,8 +4,8 @@ export default class SliderComponent extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      inputOneValue: '',
-      inputTwoValue: ''
+      inputOneValue: 1,
+      inputTwoValue: 40
     }
     this.clearAllSlider = React.createRef();
     this.handleResetSlider=this.handleResetSlider.bind(this);

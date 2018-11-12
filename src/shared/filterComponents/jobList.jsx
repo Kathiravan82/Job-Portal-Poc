@@ -25,15 +25,34 @@ export default class JobList extends Component{
 	  	const filterKeys = Object.keys(filters);
 
 	  // filters all elements passing the criteria
+	  console.log("filters",filters)
 	  console.log("filterKeys",filterKeys)
-	  return array.filter((item) => {
+	  return array.filter((item,i) => {
 	    // dynamically validate all filter criteria
-	    return filterKeys.every(key => {
-	    	if(filters[key].indexOf(item[key])!= -1){
-	    		return item;
-	    	}else if(item[key].indexOf(filters[key])!= -1 ){
-	    		return item;
-	    	}
+	    return filterKeys.every((key) => {
+	    	switch(key){
+	    		case "jobType":{
+		    	if(filters[key].indexOf(item[key])!= -1){
+		    		console.log("if part")
+		    		return item;
+		    	}
+		    	break;
+		    	}
+		    	case "requiredSkills":{
+		    		if(item[key].indexOf(filters.requiredSkills[0])!= -1){
+		    		console.log("case1 part")
+		    		return item;
+		    	}
+		    	break;
+		    	}
+		    	default:{
+		    		if(filters[key].indexOf(item[key])!= -1){
+		    		console.log("default part")
+		    		return item;
+		    	}
+		    	break;
+		    	}
+		    }
 	    });
 	  });
 	}
@@ -126,13 +145,12 @@ export default class JobList extends Component{
 		  	gstrArray=filterGSValues.globalSearch.split(",");
 			filteredArr = [];
 			this.globalSearchFilter(gstrArray,filterData,filterIds);
-		}
-		if(Object.keys(filterValues).length === 0 && filterValues.constructor === Object && gstrArray.length == 0){
-			filteredArr = this.props.jsonData;
 		}	
 		else{
 			filteredArr = [];
 			filteredArr = filterData;
+		}if(Object.keys(filterValues).length === 0 && filterValues.constructor === Object && gstrArray.length == 0){
+			filteredArr = this.props.jsonData;
 		}
 		
 		return(
