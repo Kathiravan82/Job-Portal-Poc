@@ -30,7 +30,7 @@ export default class App extends Component {
     if(hostName == 'localhost'){
       jsonURL='http://localhost:9000/api/jobdescriptions/'
     }else{
-      jsonURL=`${hostName}/data/joblist.json`
+      jsonURL=`/data/joblist.json`
     }
     axios.get(jsonURL)
       .then(res => {
