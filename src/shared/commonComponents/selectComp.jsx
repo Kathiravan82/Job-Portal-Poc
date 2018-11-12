@@ -28,39 +28,38 @@ export default class SelectComp extends Component{
 				filterType = "requiredSkills"
 				break;
 			}
-			case "Job type":{
-				filterType = "jobType"
-				break;
-			}
 			case "State or Province":{
 				filterType = "location"
 				break;
 			}
 			default :{
-				filterType = filterVal
+				filterType = ''
 			}
 		}
 		return filterType;
 	}
 	onHandleChange(value){
-		const filterTypeVal=this.props.title === "Job type"?"joblist":this.props.title
+		const filterTypeVal=this.props.title;
 		let filterType= this.filterTypeVal(filterTypeVal)
-
+		console.log("onHandleChange",value)
 		//filterType=filterType.replace(" ","").toLowerCase();
 		const filterValues=this.props.filterValues;
-		if(!value){
-			delete filterValues[filterType];	
-		}else{
-			if(Array.isArray(value)){
-				filterValues[filterType]=value;
+		const sortedVal=this.props.sortedVal;
+		if(filterType == 'requiredSkills' || filterType == 'location' ){
+			if(!value){
+				delete filterValues[filterType];	
 			}else{
-				filterValues[filterType]=value.toString().split(",");
+					if(Array.isArray(value)){
+						filterValues[filterType]=value;
+					}else{
+						filterValues[filterType]=value.toString().split(",");
+					}
+					if(!filterValues[filterType] || filterValues[filterType].length == 0 ){
+							delete filterValues[filterType];	
+					}
+						this.props.handleChange(filterValues);
+				
 			}
-			if(!filterValues[filterType] || filterValues[filterType].length == 0 ){
-					delete filterValues[filterType];	
-			}
-				this.props.handleChange(filterValues);
-			
 		}
 	}
 	renderOptions= (optionVal)=> {

@@ -20,9 +20,6 @@ export default class JobList extends Component{
 			filteredArr:jsonData
 		}
 	}
-	componentDidMount(){
-		this.onHandleSort("relavance");
-	}
 	multiFilter(array, filters) {
 	  	const filterKeys = Object.keys(filters);
 
@@ -49,7 +46,9 @@ export default class JobList extends Component{
 	}
 	onHandleSort(value){
 				const filterValues= this.props.filterValues;
-				console.log(filterValues);
+				console.log("filteredArr",filteredArr);
+				console.log("onHandleSort_value",value);
+				filteredArr=this.state.filteredArr;
 		switch(value){
 			case "lowToHigh":{
 				filteredArr=filteredArr.sort(function(a, b){
@@ -77,7 +76,7 @@ export default class JobList extends Component{
 			case "relavance":{
 				//return filteredArr;
 				this.setState({
-					filteredArr:filteredArr
+					filteredArr:jsonData
 				})
 				this.props.handleChange(filterValues)
 				break;
@@ -86,7 +85,7 @@ export default class JobList extends Component{
 		}
 
 	}
-	globalSearchFilter(gsArray,filterData){
+	globalSearchFilter(gsArray,filterData,filterIds){
 		gsArray.forEach((arrayVal) => {
 			filterData.forEach(element => {
 			    for (var property in element) {
@@ -115,6 +114,8 @@ export default class JobList extends Component{
 		let filterValues=this.props.filterValues;
 		const salarymin=filterValues.salarymin;
 		const salarymax=filterValues.salarymax;
+		console.log(salarymin)
+		console.log(salarymax)
 		let filterGSValues=this.props.globalSearch;
 		let filterData = jsonData;
 		
@@ -132,16 +133,16 @@ export default class JobList extends Component{
 		if(filterGSValues.globalSearch){
 		  	gstrArray=filterGSValues.globalSearch.split(",");
 			filteredArr = [];
-			this.globalSearchFilter(gstrArray,filterData);
-			
-		}else{
-			filteredArr = [];
-			filteredArr = filterData;
-
+			this.globalSearchFilter(gstrArray,filterData,filterIds);
 		}
 		if(Object.keys(filterValues).length === 0 && filterValues.constructor === Object && gstrArray.length == 0){
 			filteredArr = this.state.filteredArr;
 		}	
+		else{
+			filteredArr = [];
+			filteredArr = filterData;
+		}
+		
 		return(
 		<div className="JobListBlock container">
 		<Row>
