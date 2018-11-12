@@ -47,7 +47,7 @@ export default class Availability extends Component{
 	render(){
 		return(
 		<div className="container">
-		<p><b>AVAILABILITY <Tooltip title="prompt text"><Icon type="info-circle" style={{ fontSize: '18px' }} theme="outlined" /> </Tooltip></b> 
+		<p><b>AVAILABILITY <Tooltip title="Choose the job type"><Icon type="info-circle" style={{ fontSize: '18px' }} theme="outlined" /> </Tooltip></b> 
 		<span className='clearFilter' onClick={this.handleResetCheckbox}>clear</span></p>
 		<div><Checkbox name="hourly" className='availability_box' checked={this.state.checkedItems.get("hourly")} onChange={this.handleOnChange}>Hourly</Checkbox></div>
 		<div><Checkbox name="Part Time" className='availability_box' checked={this.state.checkedItems.get("Part Time")} onChange={this.handleOnChange}>Part-Time(20hrs/wk)</Checkbox></div>

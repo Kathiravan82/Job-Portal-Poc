@@ -39,7 +39,8 @@ export default class LeftBlockComponent extends Component{
 		//console.log("jobProps",jobtypeProps);
 		//const jobtypeProps1 = this.filterProps(jsonData,"jobType");
 		//console.log("jobtypeProps1",jobtypeProps1);
-		const jobtypeProps=['Full-time','Part-time','hourly'];
+		//const jobtypeProps=['Full-time','Part-time','hourly'];
+		const jobtypeProps =this.filterProps(jsonData,"title");
 		//const skillsProps = ["PHP","NPM","REACT","JAVASCRIPT","CSS","HTML5","ANGULAR.JS"];
 		const experienceProps=['1-5 years','5-10 years','10+ years'];
 		const languageProps=['English','Spanish','France','Chinese','Korean'];

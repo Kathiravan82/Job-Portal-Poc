@@ -28,6 +28,10 @@ export default class SelectComp extends Component{
 				filterType = "requiredSkills"
 				break;
 			}
+			case "Job type":{
+				filterType = "title"
+				break;
+			}
 			case "State or Province":{
 				filterType = "location"
 				break;
@@ -44,8 +48,7 @@ export default class SelectComp extends Component{
 		console.log("onHandleChange",value)
 		//filterType=filterType.replace(" ","").toLowerCase();
 		const filterValues=this.props.filterValues;
-		const sortedVal=this.props.sortedVal;
-		if(filterType == 'requiredSkills' || filterType == 'location' ){
+		if(filterType != '' ){
 			if(!value){
 				delete filterValues[filterType];	
 			}else{
@@ -89,7 +92,7 @@ export default class SelectComp extends Component{
 		return(
 		<div className={title === "State or Province"?"state_province__container container":title.toString().replace(' ','').toLowerCase()+"__container container"}>
 				<p>
-				<b>{title+" "}{title === "Job type"?<Tooltip title="prompt text"><Icon type="info-circle" style={{ fontSize: '18px' }} theme="outlined" /> </Tooltip>:""}</b>
+				<b>{title+" "}{title === "Job type"?<Tooltip title="Developer Title"><Icon type="info-circle" style={{ fontSize: '18px' }} theme="outlined" /> </Tooltip>:""}</b>
 				<span className='clearFilter' id={title === "State or Province"?"state_province":title.toString().replace(' ','').toLowerCase()} onClick={this.onHandleReset}  >clear</span>
 				</p>
 				{compType == "multiple"?
