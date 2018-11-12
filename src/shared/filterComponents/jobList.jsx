@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { List, Avatar, Icon, Select,Layout,Row,Col,Input } from 'antd';
 
-import jsonData from '../data/joblist.json';
+//import jsonData from '../data/joblist.json';
 const Option = Select.Option;
 const IconText = ({ type, text }) => (
   <span>
@@ -10,26 +10,28 @@ const IconText = ({ type, text }) => (
   </span>
 );
 let filteredArr = [];
+let skillsData=[];
 export default class JobList extends Component{
 	constructor(props){
 		super(props);
 		this.multiFilter = this.multiFilter.bind(this);
 		this.salaryDiffCalculator =this.salaryDiffCalculator.bind(this);
 		this.onHandleSort= this.onHandleSort.bind(this);
-		this.state={
-			filteredArr:jsonData
-		}
+		// this.state={
+		// 	filteredArr:jsonData
+		// }
 	}
 	multiFilter(array, filters) {
 	  	const filterKeys = Object.keys(filters);
 
 	  // filters all elements passing the criteria
+	  console.log("filterKeys",filterKeys)
 	  return array.filter((item) => {
 	    // dynamically validate all filter criteria
 	    return filterKeys.every(key => {
 	    	if(filters[key].indexOf(item[key])!= -1){
 	    		return item;
-	    	}else if(item[key].indexOf(filters[key]) != -1){
+	    	}else if(item[key].indexOf(filters[key])!= -1 ){
 	    		return item;
 	    	}
 	    });
@@ -46,38 +48,26 @@ export default class JobList extends Component{
 	}
 	onHandleSort(value){
 				const filterValues= this.props.filterValues;
-				console.log("filteredArr",filteredArr);
-				console.log("onHandleSort_value",value);
-				filteredArr=this.state.filteredArr;
+				filteredArr=this.props.jsonData;
 		switch(value){
 			case "lowToHigh":{
 				filteredArr=filteredArr.sort(function(a, b){
-    							return a.salarymin-b.salarymin
+    						return a.salarymin-b.salarymin
 							})
-				this.setState({
-					filteredArr:filteredArr
-				})
-				//const filterValues= this.props.filterValues;
+				this.props.sortChange(filteredArr)
 				this.props.handleChange(filterValues)
 				break;
 			}
 			case "highToLow":{
 				filteredArr=filteredArr.sort(function(a, b){
     							return b.salarymin-a.salarymin
-							})
-				
-				//const filterValues= this.props.filterValues
-				this.setState({
-					filteredArr:filteredArr
-				})
+							})				
+				this.props.sortChange(filteredArr)
 				this.props.handleChange(filterValues)
 				break;
 			}
 			case "relavance":{
-				//return filteredArr;
-				this.setState({
-					filteredArr:jsonData
-				})
+				this.props.sortChange(filteredArr)
 				this.props.handleChange(filterValues)
 				break;
 			}
@@ -108,10 +98,12 @@ export default class JobList extends Component{
 		})
 	}
 	render(){
+		const jsonData =this.props.jsonData
 		let filterIds = [];
 		let salaryDiffChecker =[];
 		let gstrArray = [];
 		let filterValues=this.props.filterValues;
+		console.log(filterValues)
 		const salarymin=filterValues.salarymin;
 		const salarymax=filterValues.salarymax;
 		console.log(salarymin)
@@ -136,7 +128,7 @@ export default class JobList extends Component{
 			this.globalSearchFilter(gstrArray,filterData,filterIds);
 		}
 		if(Object.keys(filterValues).length === 0 && filterValues.constructor === Object && gstrArray.length == 0){
-			filteredArr = this.state.filteredArr;
+			filteredArr = this.props.jsonData;
 		}	
 		else{
 			filteredArr = [];

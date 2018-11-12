@@ -3,7 +3,10 @@ import { Layout,Divider,Input,Slider } from 'antd';
 import Availability from './availability.jsx';
 import SelectComp from '../commonComponents/selectComp.jsx';
 import SliderComponent from './sliderComponent.jsx';
-import jsonData from '../data/joblist.json';
+//import jsonData from '../data/joblist.json';
+
+
+
 
 export default class LeftBlockComponent extends Component{
 	constructor(props){
@@ -14,13 +17,13 @@ export default class LeftBlockComponent extends Component{
 		this.clearAllinputChildCall=this.clearAllinputChildCall.bind(this);
 		this.filterProps=this.filterProps.bind(this);
 	}
+	
 	clearAllinputChildCall(){
 		let filterValues=this.props.filterValues;
 		this.clearAllinput.current.clearAllInputMethod();
 		this.clearAllCheckbox.current.handleResetCheckbox();
 		this.clearAllSlider.current.handleResetSlider();
 		filterValues=null
-		console.log("clearAllinputChildCall",filterValues)
 	}
 	filterProps(data,property){
 		let arr = [];
@@ -35,17 +38,15 @@ export default class LeftBlockComponent extends Component{
 		return arr;
 	}
 	render(){
-		const skillsProps= this.filterProps(jsonData,"requiredSkills");
-		//console.log("jobProps",jobtypeProps);
-		//const jobtypeProps1 = this.filterProps(jsonData,"jobType");
-		//console.log("jobtypeProps1",jobtypeProps1);
-		//const jobtypeProps=['Full-time','Part-time','hourly'];
-		const jobtypeProps =this.filterProps(jsonData,"title");
-		//const skillsProps = ["PHP","NPM","REACT","JAVASCRIPT","CSS","HTML5","ANGULAR.JS"];
+		const jobData=this.props.jsonData
+		console.log(jobData);
+		const skillsProps= this.filterProps(jobData,"requiredSkills");
+		const jobtypeProps =this.filterProps(jobData,"title");
 		const experienceProps=['1-5 years','5-10 years','10+ years'];
 		const languageProps=['English','Spanish','France','Chinese','Korean'];
-		const countryProps =this.filterProps(jsonData,"location");
+		const countryProps =this.filterProps(jobData,"location");
 		let filterValues=this.props.filterValues;
+		
 		return(
 			<Layout >
 				<p><b>FILTERS</b> <span className='clearFilter' onClick={this.clearAllinputChildCall}>Clear all filters</span></p>
