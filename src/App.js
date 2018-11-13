@@ -5,6 +5,7 @@ import RightBlockComponent from './shared/filterComponents/rightBlockComponent.j
 import FooterComponent from './shared/footerComponents/footerComponent.jsx'
 import SearchComponent from './shared/filterComponents/searchComponent.jsx'
 import JobList from './shared/filterComponents/jobList.jsx'
+//import LoaderHoc from './HOC/LoaderHoc.jsx';
 import './App.scss';
 import { Layout,Row,Col,Input } from 'antd';
 import localJsonData from './shared/data/joblist.json';
@@ -42,7 +43,7 @@ export default class App extends Component {
         this.setState({ jsonData:localJsonData });
       })
     }
-  sortChange(sortedArray){
+  sortChange(sortedArray=this.state.jsonData){
     this.setState({ 
       jsonData: sortedArray
     });
@@ -66,7 +67,6 @@ export default class App extends Component {
     const globalSearch=this.state.gs;
     const jobData=this.state.jsonData
     console.log("AppJs",filterValues)
-    console.log("window.location.hostname",window.location.hostname);
     return (
       <Layout>
       <HeaderComponent />

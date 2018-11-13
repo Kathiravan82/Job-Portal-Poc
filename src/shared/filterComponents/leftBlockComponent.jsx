@@ -3,6 +3,7 @@ import { Layout,Divider,Input,Slider } from 'antd';
 import Availability from './availability.jsx';
 import SelectComp from '../commonComponents/selectComp.jsx';
 import SliderComponent from './sliderComponent.jsx';
+
 //import jsonData from '../data/joblist.json';
 
 

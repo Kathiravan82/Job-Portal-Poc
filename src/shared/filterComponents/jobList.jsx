@@ -21,6 +21,9 @@ export default class JobList extends Component{
 		// 	filteredArr:jsonData
 		// }
 	}
+	componentWillReceiveProps(props){
+		console.log("componentwillreceiveprops",props.jsonData);
+	}
 	multiFilter(array, filters) {
 	  	const filterKeys = Object.keys(filters);
 
@@ -67,7 +70,8 @@ export default class JobList extends Component{
 	}
 	onHandleSort(value){
 				const filterValues= this.props.filterValues;
-				filteredArr=this.props.jsonData;
+				filteredArr=this.props.jsonData.concat();
+				console.log("filteredArr",filteredArr)
 		switch(value){
 			case "lowToHigh":{
 				filteredArr=filteredArr.sort(function(a, b){
@@ -86,6 +90,9 @@ export default class JobList extends Component{
 				break;
 			}
 			case "relavance":{
+				filteredArr=filteredArr.sort(function(a, b){
+    							return a.id-b.id
+							})	
 				this.props.sortChange(filteredArr)
 				this.props.handleChange(filterValues)
 				break;
