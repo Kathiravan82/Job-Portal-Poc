@@ -10,7 +10,7 @@
     "react-app-rewire-less": "^2.1.3",
     "react-app-rewired": "^1.6.2",
     "react-dom": "^16.6.0",
-    "react-scripts": "^2.1.0"
+    "react-scripts": "^5.0.1"
   },
   "proxy": "http://localhost:9000",
   "scripts": {
